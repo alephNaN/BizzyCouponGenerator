@@ -138,8 +138,7 @@ class PrivateAPI {
 			CURLOPT_COOKIEJAR => self::_COOKIE_STORE,
 			CURLOPT_COOKIEFILE => self::_COOKIE_STORE,
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_SSL_VERIFYPEER => false
+			CURLOPT_FOLLOWLOCATION => true
 		];
 		$options = $default + array_filter($extra, function($v) {
 			return !is_null($v);
