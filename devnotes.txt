@@ -1,0 +1,3 @@
+- Want to write code to abstract out the particular ECommerce platform. 
+  Support Shopify, and others.
+- Need test Shopify account to verify discount code creation

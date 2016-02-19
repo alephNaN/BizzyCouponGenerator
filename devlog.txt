@@ -1,0 +1,10 @@
+Started at 12:30PM
+
+Research (12:30-1:30PM)
+	- Experimented with: https://github.com/MartinAmps/Shopify-Private-APIs/blob/master/shopify.php
+	- What the code is doing:
+		(1) logins to Shopify with a user's username and password
+ 		(2) Makes do request at the discount creation page with appropriate parameters
+ 	- Notes:
+ 		Relies on CURL. Problem with Curl on my Windows LAMP stack. Upload to Linux box, works. 
+
