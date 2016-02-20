@@ -1,3 +1,7 @@
 - Want to write code to abstract out the particular ECommerce platform. 
   Support Shopify, and others.
 - Need test Shopify account to verify discount code creation
+- shopify.php currently does not correctly error handle the caller of the API passing in an invalid shop name. 
+  The code thinks it's able to successfully login, and runs into problem when actually trying to interface with Shopify' internal API
+- Ran into problem running the code on a Windows computer with LAMP stack with a different curl configuration / installation  than uploading to my linux box
+- Ran into a problem where going to the backend service, would be redirected to shopify or prompted for login by shopify. Cannot / do not remember how to reproduce. Clearing the browser cookies, and restarting chrome fixed this. This is where I wasted an hour. 
