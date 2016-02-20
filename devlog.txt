@@ -8,3 +8,32 @@ Research (12:30-1:30PM)
  	- Notes:
  		Relies on CURL. Problem with Curl on my Windows LAMP stack. Upload to Linux box, works. 
 
+Backend Service (1:30PM-4:00PM)
+	- Code to check necessary parameters are passed in
+	- Figure out what the output / return value of backend was. Decided on a JSON object
+	- Add error handling if invalid login credentials. 
+	- Wasted an an hour on some weird cache / cookie issue. 
+	- Reverse engineering what Shopify's internal facing "API" protocol was. 
+	  The only knowledge reflected in the code is that the coupon types have to be 
+	  "fixed_amount", "percentage", "shipping".
+
+Last Minute Frontend (4:00-4:30)
+	- Skeleton for HTML, CSS, JS.
+	- Ajax request is empty. Does not update page based on error / success of backend
+
+Given more time:
+	
+	If I had more time:
+	----------------------------------
+	- Create an actual user interface and make it pretty
+	- Fill in the Ajax call to handle response / error from the backend service
+	- Add form validation on the frontend
+	- Make backend service accept more parameters for the coupon
+	- Make backend service validate the coupon code name
+	- Make backend service accept a prefix or short keyword to insert into coupon code based on the user's store name or ad campaign, plus some random parts to coupon code (so people can't guess an arbitrary coupon code), and other meaningful information such as a issue date or coupon value. IE: kj6nikewinter30.
+	- Make the php service be POST instead of GET
+	- Consider how this coupon service would fit into a larger system at Bizzy, without requiring using to input their store name / username / password
+	- Provided this coupon service exists in a larger system at Bizzy, we would keep track of all the user's stores, and let user select what store to create coupon for
+	- Generalizing the backend code to be relatively agnostic to the ecommerce platform, and then have platform specific wrappers 
+	- Make the backend service return standardized error codes, and have documentation to specify to describe this, instead of error strings
+	- Add default expiration date, within some fixed number of days from issue date. Allow user to override and explictly specify. 
