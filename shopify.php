@@ -54,7 +54,16 @@ class PrivateAPI {
 		]);
 		$data = curl_exec($this->ch);
 		$http_code = curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
-		return ($http_code == 200 && $this->setToken($data));
+
+		if ($http_code != 200) {
+			return false;
+		}
+
+		try {
+			return $this->setToken($data);
+		} catch(\Exception $e) {
+			return false;
+		}
 	}
 	public function doRequest($method, $function, $parameters) {
 		$this->ch = curl_init();		
