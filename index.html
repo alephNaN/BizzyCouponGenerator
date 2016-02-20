@@ -1,0 +1,58 @@
+<!-- Front End -->
+
+<html>
+	<head>
+		<title>Bizzy Coupon Generator</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
+		<script>
+			$("document").ready(function() {
+
+				$("#submit").click(function() {
+					// Make Ajax Request to create
+					$.ajax( "create.php" )
+					  .done(function() {
+					    alert( "success" );
+					  })
+					  .fail(function() {
+					    alert( "error" );
+					  })
+					  .always(function(response) {
+					    console.log(response);
+					  });
+				});
+			});
+
+		</script>
+
+	</head>
+
+
+	<body>
+		<div>
+
+		</div>
+
+		<div>
+			<form>
+		<label for="username">Male</label>
+			<input name="username"></input>
+			<label for="password">PassWord</label>
+			<input name="password"></input>
+			<label for="storename">Store</label>
+			<input name="storename"></input>
+			<label for="couponcode">Code</label>
+			<input name="couponcode"></input>
+			<select>
+			  <option value="volvo">Fixed Amount</option>
+			  <option value="saab">Percentage </option>
+			  <option value="mercedes">Shipping</option>
+			</select>
+			<input id="amount"></input>
+			<input type="submit" id="submit"></input>
+		</form>
+		</div>
+	</body>
+</body>
