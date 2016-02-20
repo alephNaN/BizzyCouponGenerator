@@ -20,7 +20,7 @@
 	//Verify Discount Type
 	$discount_code = $_GET['code'];
 	$discount_type = $_GET['type'];
-	if ($discount_type != 'percentage' && $discount_type != 'absolute') {
+	if ($discount_type != 'percentage' && $discount_type != 'fixed_amount' && $discount_type!='shipping') {
 		array_push($response['errors'], 'Invalid discount_type:' . $discount_type );
 		shortCircuit();
 	}
@@ -29,26 +29,28 @@
 	$shopify_username = $_GET['username'];
 	$shopify_password = $_GET['password'];
 	$shopify_admin_url = "https://{$shopify_storename}.myshopify.com/admin";
+
 	$api = new \Shopify\PrivateAPI($shopify_username, $shopify_password, $shopify_admin_url);
 
-	echo $api->isLoggedIn();
-
- /*   if (!$api->isLoggedIn() && !$api->login()) {
-    	echo "here";
-        array_push($response['errors'], "Can't login");
+ 	if (!$api->isLoggedIn() && !$api->login()) {
+    	array_push($response['errors'], "Can't login, check your credentials");
         shortCircuit();
     } 
+	
     # Set the CSRF token for the POST request
     $discount_url = $shopify_admin_url . '/discounts/new';
 
     try { $api->setToken($discount_url); } 
-    catch (\Exception $ex) { }
+    catch (\Exception $ex) {
+    	array_push($response['errors'], "Internal Errror, sorry");
+    	shortCircuit();
+    }
 
     # Create a 5% discount coupon
     $new_discount = ['discount' => [
         'applies_to_id' => '',
         'code' => $discount_code,
-        'discount_type' => 'percentage',
+        'discount_type' => $discount_type,
         'value' => 5,
         'usage_limit' => 1,
         'starts_at' => date('Y-m-d\TH:i:sO', mktime(0, 0, 0)),
@@ -58,19 +60,19 @@
 
     $do_discount = $api->doRequest('POST', 'discounts.json', $new_discount);
 
-    echo 2;
-
     if (count($do_discount->errors->code) > 0 ) {
     	// Shopify Discount Cod Already exists
     	if ($do_discount->errors->code[0] === 'must be unique. Please try a different code.') {
     		array_push($response["errors"], "Existing Code Already exist: " . $discount_code);
+    	}
+    	if ($do_discount->error->discount_type[0]) {
+    		array_push($response["errors"], "Internal Error. Discount type invalid");
     	}
     } else {
     	$response["success"] = true;
     	$response["output"] = $do_discount;
     }
    
-*/
 
     echo json_encode($response);
 
