@@ -46,17 +46,28 @@
     	shortCircuit();
     }
 
-    # Create a 5% discount coupon
-    $new_discount = ['discount' => [
-        'applies_to_id' => '',
-        'code' => $discount_code,
-        'discount_type' => $discount_type,
-        'value' => 5,
-        'usage_limit' => 1,
-        'starts_at' => date('Y-m-d\TH:i:sO', mktime(0, 0, 0)),
-        'ends_at' => null,
-        'applies_once' => false
-    ]];
+    if ($discount_type === "shipping") {
+
+    } else if ($discount_type === "percentage") {
+
+    } else if ($discount_type === "fixed_amount") {
+	    # Create a 5% discount coupon
+	    $new_discount = ['discount' => [
+	        'applies_to_id' => '',
+	        'code' => $discount_code,
+	        'discount_type' => $discount_type,
+	        'value' => 5,
+	        'usage_limit' => 1,
+	        'starts_at' => date('Y-m-d\TH:i:sO', mktime(0, 0, 0)),
+	        'ends_at' => null,
+	        'applies_once' => false
+	    ]];
+
+    } else {
+    	array_push($response['errors'], "Internal Error, sorry");
+    	shortCircuit();
+    }
+
 
     $do_discount = $api->doRequest('POST', 'discounts.json', $new_discount);
 
